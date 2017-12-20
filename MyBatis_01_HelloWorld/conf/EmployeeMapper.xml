@@ -7,6 +7,6 @@
 	 2.resultType 返回值类型
 	 3.#{}-->
   	<select id="getEmpById" resultType="com.zs.mybatis.bean.Employee">
-    	select id,last_name lastName,gender,email from tbl_employee where id = #{id}
+    	select * from tbl_employee where id = #{id}
   	</select>
 </mapper>
