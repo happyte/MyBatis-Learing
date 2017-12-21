@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import com.zs.mybatis.bean.Employee;
 import com.zs.mybatis.dao.EmployeeMapper;
+import com.zs.mybatis.dao.EmployeeMapperAnnotation;
 
 public class MyBatisTest {
 	
@@ -40,6 +41,23 @@ public class MyBatisTest {
 		try {
 			//3.获取接口
 			EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+			//4.
+			Employee employee = mapper.getEmpById(1);
+			System.out.println(employee);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	@Test
+	public void test02() throws IOException{
+		//1.获取sqlSessionFactory
+		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+		//2.获取sqlSession
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			//3.获取接口
+			EmployeeMapperAnnotation mapper =  sqlSession.getMapper(EmployeeMapperAnnotation.class);
 			//4.
 			Employee employee = mapper.getEmpById(1);
 			System.out.println(employee);

@@ -2,7 +2,7 @@ package com.zs.mybatis.bean;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("emp")
+//@Alias("emp")
 public class Employee {
 	private Integer id;
 	private String lastName;
