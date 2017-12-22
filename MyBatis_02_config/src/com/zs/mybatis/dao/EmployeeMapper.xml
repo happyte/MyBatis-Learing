@@ -3,14 +3,24 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zs.mybatis.dao.EmployeeMapper">
-<!-- 1.id:唯一标识(如果接口式编程的话，指定为接口的全类名)
+	<!-- 1.id:唯一标识(如果接口式编程的话，指定为接口的全类名)
 	 2.resultType 返回值类型
 	 3.#{}-->
   	<select id="getEmpById" resultType="com.zs.mybatis.bean.Employee">
     	select * from tbl_employee where id = #{id}
   	</select>
-	<!-- 员工添加方法 public void addEmp(Employee employee),parameterType可以省去 -->
-	<insert id="addEmp">
+  	
+  	<!--多个参数 public Employee getEmpByIdAndLastName(Integer id,String lastName); -->
+  	<select id="getEmpByIdAndLastName" resultType="com.zs.mybatis.bean.Employee">
+  		select * from tbl_employee where id = #{id} and last_name = #{lastName}
+  	</select>
+	<!-- 
+		员工添加方法 public void addEmp(Employee employee),parameterType可以省去 
+		useGeneratedKeys="true"；使用自增主键获取主键值策略
+		keyProperty；指定对应的主键属性，也就是mybatis获取到主键值以后，将这个值封装给javaBean的哪个属性
+	-->
+	<insert id="addEmp" parameterType="com.zs.mybatis.bean.Employee"
+	useGeneratedKeys="true" keyProperty="id">
 		insert into tbl_employee(last_name,email,gender) values(#{lastName},#{email},#{gender})
 	</insert>
 	

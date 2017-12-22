@@ -76,15 +76,30 @@ public class MyBatisTest {
 			//3.获取接口
 			EmployeeMapper mapper =  sqlSession.getMapper(EmployeeMapper.class);
 			//添加员工
-//			Employee employee = new Employee(null, "jeff", "1", "hayyte@163.com");
-//			mapper.addEmp(employee);
+			Employee employee = new Employee(null, "Tom", "1", "123@163.com");
+			mapper.addEmp(employee);
+			System.out.println(employee.getId());
 			//修改员工
 //			Employee employee = new Employee(1, "jeff", "0", "hayyte@163.com");
 //			boolean status = mapper.updateEmp(employee);
 //			System.out.println(status);
 			//删除员工
-			mapper.deleteEmpById(1);
+//			mapper.deleteEmpById(1);
 			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	@Test
+	public void test04() throws IOException{
+		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			EmployeeMapper mapper =  sqlSession.getMapper(EmployeeMapper.class);
+			Employee employee = mapper.getEmpByIdAndLastName(4, "Tom");
+			System.out.println(employee);
+			
 		} finally {
 			sqlSession.close();
 		}
