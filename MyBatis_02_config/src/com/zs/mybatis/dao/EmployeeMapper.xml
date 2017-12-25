@@ -18,6 +18,16 @@
   		select * from tbl_employee where last_name like #{lastName}
   	</select>
   	
+  	<!-- public Map<Integer, Employee> getEmpByLastNameReturnMap(String lastNme); -->
+  	<select id="getEmpByLastNameReturnMap" resultType="map">
+  		select * from tbl_employee where last_name like #{lastName}
+  	</select>
+  	
+  	<!--返回map public Map<String, Object> getEmpByIdReturnMap(Integer id) -->
+  	<select id="getEmpByIdReturnMap" resultType="map">
+  		select * from tbl_employee where id = #{id}
+  	</select>
+  	
   	<!--多个参数 public Employee getEmpByIdAndLastName(Integer id,String lastName); -->
   	<select id="getEmpByIdAndLastName" resultType="com.zs.mybatis.bean.Employee">
   		select * from tbl_employee where id = #{id} and last_name = #{lastName}

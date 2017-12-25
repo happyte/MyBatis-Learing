@@ -3,6 +3,7 @@ package com.zs.mybatis.test;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -100,9 +101,17 @@ public class MyBatisTest {
 			EmployeeMapper mapper =  sqlSession.getMapper(EmployeeMapper.class);
 //			Employee employee = mapper.getEmpByIdAndLastName(4, "Tom");
 //			System.out.println(employee);
-			List<Employee> list = mapper.getEmpsByLastName("%e%");
-			for(Employee employee:list){
-				System.out.println(employee);
+//			List<Employee> list = mapper.getEmpsByLastName("%e%");
+//			for(Employee employee:list){
+//				System.out.println(employee);
+//			}
+//			Map<String, Object> map = mapper.getEmpByIdReturnMap(5);
+//			for(Map.Entry<String, Object> entry:map.entrySet()){
+//				System.out.println(entry.getKey()+" "+entry.getValue());
+//			}
+			Map<Integer, Employee> map = mapper.getEmpByLastNameReturnMap("%e%");
+			for(Map.Entry<Integer, Employee> entry:map.entrySet()){
+				System.out.println(entry.getKey()+" "+entry.getValue());
 			}
 			
 		} finally {
