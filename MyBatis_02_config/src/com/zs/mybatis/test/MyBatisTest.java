@@ -2,6 +2,7 @@ package com.zs.mybatis.test;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -97,8 +98,12 @@ public class MyBatisTest {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			EmployeeMapper mapper =  sqlSession.getMapper(EmployeeMapper.class);
-			Employee employee = mapper.getEmpByIdAndLastName(4, "Tom");
-			System.out.println(employee);
+//			Employee employee = mapper.getEmpByIdAndLastName(4, "Tom");
+//			System.out.println(employee);
+			List<Employee> list = mapper.getEmpsByLastName("%e%");
+			for(Employee employee:list){
+				System.out.println(employee);
+			}
 			
 		} finally {
 			sqlSession.close();

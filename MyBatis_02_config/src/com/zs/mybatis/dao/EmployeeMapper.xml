@@ -10,6 +10,14 @@
     	select * from tbl_employee where id = #{id}
   	</select>
   	
+  	<!--
+  		返回list public List<Employee> getEmpsByLastName(String lastName) 
+  		返回类型是list集合里面数据的类型
+  	-->
+  	<select id="getEmpsByLastName" resultType="com.zs.mybatis.bean.Employee">
+  		select * from tbl_employee where last_name like #{lastName}
+  	</select>
+  	
   	<!--多个参数 public Employee getEmpByIdAndLastName(Integer id,String lastName); -->
   	<select id="getEmpByIdAndLastName" resultType="com.zs.mybatis.bean.Employee">
   		select * from tbl_employee where id = #{id} and last_name = #{lastName}
