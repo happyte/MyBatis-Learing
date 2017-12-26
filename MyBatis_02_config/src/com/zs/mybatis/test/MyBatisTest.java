@@ -11,7 +11,9 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.zs.mybatis.bean.Department;
 import com.zs.mybatis.bean.Employee;
+import com.zs.mybatis.dao.DepartmentMapper;
 import com.zs.mybatis.dao.EmployeeMapper;
 import com.zs.mybatis.dao.EmployeeMapperAnnotation;
 import com.zs.mybatis.dao.EmployeeMapperPlus;
@@ -132,11 +134,25 @@ public class MyBatisTest {
 //			System.out.println(employee);
 //			System.out.println(employee.getDept());
 			Employee employee = mapperPlus.getEmpByIdStep(1);
-			System.out.println(employee);
+			System.out.println(employee.getEmail());
 			System.out.println(employee.getDept());
 		} finally {
 			sqlSession.close();
 		}
+	}
+	
+	@Test
+	public void test06() throws IOException{
+		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			 DepartmentMapper mapper = sqlSession.getMapper(DepartmentMapper.class);
+			 Department department = mapper.getDeptByIdPlus(1);
+			 System.out.println(department);
+		} finally {
+			sqlSession.close();
+		}
+		
 	}
 
 }

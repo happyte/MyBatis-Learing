@@ -7,4 +7,25 @@
 	<select id="getDeptById" resultType="com.zs.mybatis.bean.Department">
 		select id,dept_name departmentName from tbl_dept where id = #{id}
 	</select>
+	
+	<resultMap type="com.zs.mybatis.bean.Department" id="MyDept">
+		<id column="did" property="id"/>
+		<result column="dept_name" property="departmentName"/>
+		<!-- 
+			 collection定义关联集合类型的属性的封装规则 
+			 ofType:指定集合里面元素的类型 
+		-->
+		<collection property="emps" ofType="com.zs.mybatis.bean.Employee">
+			<id column="eid" property="id"/>
+			<result column="last_name" property="lastName"/>
+			<result column="gender" property="gender"/>
+			<result column="email" property="email"/>
+		</collection>
+	</resultMap>
+	
+	<!-- public Department getDeptByIdPlus(Integer id) -->
+	<select id="getDeptByIdPlus" resultMap="MyDept">
+		select d.id did,d.dept_name dept_name,e.id eid,e.last_name last_name,e.email email,e.gender gender 
+		from tbl_dept d left join tbl_employee e on d.id=e.d_id where d.id=#{id}
+	</select>
 </mapper>
