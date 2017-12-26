@@ -7,4 +7,6 @@ public interface DepartmentMapper {
 	public Department getDeptById(Integer id);
 	//增强版，查询出部门对应的员工
 	public Department getDeptByIdPlus(Integer id);
+	//增强版，分段查询出部门对应的员工 
+	public Department getDeptByIdStep(Integer id);
 }

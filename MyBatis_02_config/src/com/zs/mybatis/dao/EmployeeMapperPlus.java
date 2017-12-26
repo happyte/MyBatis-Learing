@@ -1,5 +1,7 @@
 package com.zs.mybatis.dao;
 
+import java.util.List;
+
 import com.zs.mybatis.bean.Employee;
 
 public interface EmployeeMapperPlus {
@@ -8,4 +10,6 @@ public interface EmployeeMapperPlus {
 	public Employee getEmpWithDept(Integer id);
 	//分步查询
 	public Employee getEmpByIdStep(Integer id);
+	//根据部门编号查询员工集合
+	public List<Employee> getEmpsByDeptIdStep(Integer deptId);
 }
