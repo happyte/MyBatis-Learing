@@ -12,7 +12,7 @@
 	<resultMap type="com.zs.mybatis.bean.Employee" id="MySimpleEmp">
 		<!--指定主键列的封装规则
 			id定义主键会底层有优化；
-			column：指定哪一列
+			column：指定哪一列,是写sql指定的
 			property：指定对应的javaBean属性
 		  -->
 		  <id column="id" property="id"/>
@@ -36,8 +36,22 @@
 		<result column="dept_name" property="dept.departmentName"/>
 	</resultMap>
 	
+	<resultMap type="com.zs.mybatis.bean.Employee" id="MyDifEmp2">
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="gender" property="gender"/>
+		<result column="email" property="email"/>
+		<!-- association可以指定联合的javaBean对象
+			 property="dept"：指定哪个属性是联合的对象
+			 javaType:指定这个属性对象的类型[不能省略] -->
+		<association property="dept" javaType="com.zs.mybatis.bean.Department">
+			<id column="did" property="id"/>
+			<result column="dept_name" property="departmentName"/>
+		</association>
+	</resultMap>
+	
 	<!-- public Employee getEmpWithDept(Integer id) -->
-	<select id="getEmpWithDept" resultMap="MyDifEmp">
+	<select id="getEmpWithDept" resultMap="MyDifEmp2">
 		select e.id id,e.last_name last_name,e.gender gender,e.email email,e.d_id d_id,
 		d.id did,d.dept_name dept_name from tbl_employee e,tbl_dept d 
 		where e.d_id=d.id and e.id=#{id}
