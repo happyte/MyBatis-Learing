@@ -9,7 +9,7 @@
 		type:自定义java类型
 		id:唯一id方便引用
 	-->
-	<resultMap type="com.zs.mybatis.bean.Employee" id="MyEmp">
+	<resultMap type="com.zs.mybatis.bean.Employee" id="MySimpleEmp">
 		<!--指定主键列的封装规则
 			id定义主键会底层有优化；
 			column：指定哪一列
@@ -22,7 +22,24 @@
 	</resultMap>
 
 	<!-- resultMap:自定义结果集规则 -->
-	<select id="getEmpById" resultMap="MyEmp">
+	<select id="getEmpById" resultMap="MySimpleEmp">
 		select * from tbl_employee where id = #{id}
+	</select>
+	
+	 <!--  id   last_name   gender email   d_id   did   dept_name   -->
+	<resultMap type="com.zs.mybatis.bean.Employee" id="MyDifEmp">
+		<id column="id" property="id"/>
+		<result column="last_name" property="lastName"/>
+		<result column="gender" property="gender"/>
+		<result column="email" property="email"/>
+		<result column="did" property="dept.id"/>
+		<result column="dept_name" property="dept.departmentName"/>
+	</resultMap>
+	
+	<!-- public Employee getEmpWithDept(Integer id) -->
+	<select id="getEmpWithDept" resultMap="MyDifEmp">
+		select e.id id,e.last_name last_name,e.gender gender,e.email email,e.d_id d_id,
+		d.id did,d.dept_name dept_name from tbl_employee e,tbl_dept d 
+		where e.d_id=d.id and e.id=#{id}
 	</select>
 </mapper>
