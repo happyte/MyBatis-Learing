@@ -15,6 +15,8 @@ public interface EmployeeMapperDynamicSQl {
 	public List<Employee> getEmpsByConditionByChoose(Employee employee);
 	//set标签，更新操作(用trim标签也可以)
 	public void updateEmp(Employee employee);
-	
+	//根据list中的id批量查询
 	public List<Employee> getEmpsByConditionByForeach(@Param("ids")List<Integer> ids);
+	//批量添加
+	public void addEmps(@Param("emps")List<Employee> emps);
 }

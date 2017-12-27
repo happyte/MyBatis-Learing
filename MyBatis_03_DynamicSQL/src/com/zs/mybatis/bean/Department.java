@@ -29,4 +29,11 @@ public class Department {
 	public String toString() {
 		return "Department [id=" + id + ", departmentName=" + departmentName + ", emps=" + emps + "]";
 	}
+	public Department() {
+		super();
+	}
+	public Department(Integer id) {
+		super();
+		this.id = id;
+	}
 }

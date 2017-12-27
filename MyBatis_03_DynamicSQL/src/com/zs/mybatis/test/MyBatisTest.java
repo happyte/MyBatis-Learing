@@ -14,6 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
+import com.zs.mybatis.bean.Department;
 import com.zs.mybatis.bean.Employee;
 import com.zs.mybatis.dao.EmployeeMapperDynamicSQl;
 
@@ -59,10 +60,15 @@ public class MyBatisTest {
 //			Employee employee = new Employee(1, "zs", null, null);
 //			mapper.updateEmp(employee);
 //			sqlSession.commit();
-			List<Employee> emps = mapper.getEmpsByConditionByForeach(Arrays.asList(1,2,3));
-			for (Employee emp : emps) {
-				System.out.println(emp);
-			}
+//			List<Employee> emps = mapper.getEmpsByConditionByForeach(Arrays.asList(1,2,3));
+//			for (Employee emp : emps) {
+//				System.out.println(emp);
+//			}
+			List<Employee> emps = new ArrayList<>();
+			emps.add(new Employee(null, "jordan", "1", "jordan@163.com", new Department(1)));
+			emps.add(new Employee(null, "smith", "0", "smith@163.com", new Department(3)));
+			mapper.addEmps(emps);
+			sqlSession.commit();
 		} finally {
 			sqlSession.close();
 		}
