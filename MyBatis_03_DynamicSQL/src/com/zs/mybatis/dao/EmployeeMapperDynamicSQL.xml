@@ -65,4 +65,29 @@
 			</choose>
 		</where>
 	</select>
+	
+	<!-- public void updateEmp(Employee employee) -->
+	<update id="updateEmp">
+		update tbl_employee 
+		<set>
+			<if test="lastName!=null">
+				last_name=#{lastName},
+			</if> 
+			<if test="email!=null">
+				email=#{email},
+			</if>
+			<if test="gender!=null">
+				gender=#{gender} 
+			</if>
+		</set>
+		where id=#{id}
+	</update>
+	
+	<!-- public List<Employee> getEmpsByConditionByForeach(List<Integer> ids) -->
+	<select id="getEmpsByConditionByForeach" resultType="com.zs.mybatis.bean.Employee">
+		select * from tbl_employee
+		<foreach collection="ids" item="item_id" separator="," open="where id in (" close=")">
+			#{item_id}
+		</foreach>
+	</select>
 </mapper>

@@ -4,6 +4,8 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -42,6 +44,24 @@ public class MyBatisTest {
 			List<Employee> emps3 = mapper.getEmpsByConditionByChoose(employee);
 			for (Employee emp3 : emps3) {
 				System.out.println(emp3);
+			}
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	@Test
+	public void test01() throws IOException{
+		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		try {
+			EmployeeMapperDynamicSQl mapper = sqlSession.getMapper(EmployeeMapperDynamicSQl.class);
+//			Employee employee = new Employee(1, "zs", null, null);
+//			mapper.updateEmp(employee);
+//			sqlSession.commit();
+			List<Employee> emps = mapper.getEmpsByConditionByForeach(Arrays.asList(1,2,3));
+			for (Employee emp : emps) {
+				System.out.println(emp);
 			}
 		} finally {
 			sqlSession.close();
