@@ -3,8 +3,22 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zs.mybatis.dao.EmployeeMapperDynamicSQl">
-    <!-- public Employee getEmpById(Integer id) -->
-	<select id="getEmpById" resultType="com.zs.mybatis.bean.Employee">
-		select * from tbl_employee where id=#{id}
+	<!-- public List<Employee> getEmpsByCondition(Employee employee) -->
+	<select id="getEmpsByCondition" resultType="com.zs.mybatis.bean.Employee">
+		select * from tbl_employee 
+		where
+		<!-- id不为空，last_name不为空且不为空串，email不为空且截取不为空，gender为0或者1 -->
+		<if test="id!=null">
+			id=#{id} 
+		</if>
+		<if test="lastName!=null and lastName!=''">
+			and last_name like #{lastName} 
+		</if> 
+		<if test="email!=null and email.trim()!=null">
+			and email=#{email} 
+		</if>
+		<if test="gender==0 or gender==1">
+			and gender=#{gender}
+		</if>
 	</select>
 </mapper>

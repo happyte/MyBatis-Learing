@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -29,8 +30,19 @@ public class MyBatisTest {
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		try {
 			EmployeeMapperDynamicSQl mapper = sqlSession.getMapper(EmployeeMapperDynamicSQl.class);
-			Employee employee = mapper.getEmpById(1);
-			System.out.println(employee);
+			Employee employee = new Employee(null, "%y%", null, null);
+//			List<Employee> emps = mapper.getEmpsByCondition(employee);
+//			for (Employee emp : emps) {
+//				System.out.println(emp);
+//			}
+//			List<Employee> emps2 = mapper.getEmpsByConditionByTrim(employee);
+//			for (Employee emp2 : emps2) {
+//				System.out.println(emp2);
+//			}
+			List<Employee> emps3 = mapper.getEmpsByConditionByChoose(employee);
+			for (Employee emp3 : emps3) {
+				System.out.println(emp3);
+			}
 		} finally {
 			sqlSession.close();
 		}
