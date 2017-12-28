@@ -64,11 +64,15 @@ public class MyBatisTest {
 //			for (Employee emp : emps) {
 //				System.out.println(emp);
 //			}
-			List<Employee> emps = new ArrayList<>();
-			emps.add(new Employee(null, "jordan", "1", "jordan@163.com", new Department(1)));
-			emps.add(new Employee(null, "smith", "0", "smith@163.com", new Department(3)));
-			mapper.addEmps(emps);
-			sqlSession.commit();
+//			List<Employee> emps = new ArrayList<>();
+//			emps.add(new Employee(null, "jordan", "1", "jordan@163.com", new Department(1)));
+//			emps.add(new Employee(null, "smith", "0", "smith@163.com", new Department(3)));
+//			mapper.addEmps(emps);
+//			sqlSession.commit();
+			Employee employee = new Employee();
+			employee.setLastName("e");
+			Employee emp = mapper.getEmpByLastNameBind(employee);
+			System.out.println(emp);
 		} finally {
 			sqlSession.close();
 		}

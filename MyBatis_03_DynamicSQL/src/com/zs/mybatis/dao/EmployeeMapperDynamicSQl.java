@@ -19,4 +19,6 @@ public interface EmployeeMapperDynamicSQl {
 	public List<Employee> getEmpsByConditionByForeach(@Param("ids")List<Integer> ids);
 	//批量添加
 	public void addEmps(@Param("emps")List<Employee> emps);
+	//bind表达式
+	public Employee getEmpByLastNameBind(Employee employee);
 }

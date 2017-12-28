@@ -106,4 +106,10 @@
 		values	(#{emp.lastName},#{emp.email},#{emp.gender},#{emp.dept.id})
 		</foreach>
 	</insert>
+	
+	<!-- public Employee getEmpByLastNameBind(Employee employee) -->
+	<select id="getEmpByLastNameBind" resultType="com.zs.mybatis.bean.Employee">
+		<bind name="_lastName" value="'%'+_parameter.lastName+'%'"/>
+		select * from tbl_employee where last_name like #{_lastName}
+	</select>
 </mapper>
