@@ -23,6 +23,10 @@ public class MyBatisTest {
 	    return sqlSessionFactory;
 	}
 
+	//cacheEnabled=true,false关闭二级缓存，一级缓存可用
+	//每个select都有useCache属性，设置为false是禁用二级缓存,一级缓存可用
+	//增删改 flushCache=true，一级缓存清空,二级缓存也被清空
+	//sqlSession.clearCache()清除一级缓存，但不影响二级缓存
 	@Test
 	public void test() throws IOException {
 		SqlSessionFactory sqlSessionFactory = getSqlSessionFactory();
