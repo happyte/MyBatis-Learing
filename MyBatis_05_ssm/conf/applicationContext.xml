@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- Spring扫描除了控制器外的其它组件 -->
+	<context:component-scan base-package="com.zs.mybatis">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	
+	<!-- 引入数据库的配置文件 -->
+	<context:property-placeholder location="classpath:dbconfig.properties"/>
+	<!-- Spring Aop 配置数据源-->
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+		<property name="driverClass" value="${jdbc.driver}"></property>
+		<property name="jdbcUrl" value="${jdbc.url}"></property>
+		<property name="user" value="${jdbc.username}"></property>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	
+	<!-- Spring事物管理 -->
+	<bean id="dataSourceTransactionManager" 
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<!-- 开启基于注解的事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+	
+	<!-- mybatis整合 -->
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"></property>
+		<!-- 指定全局配置文件所在位置 -->
+		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
+		<!-- 指定mapper文件的位置 -->
+		<property name="mapperLocations" value="classpath:mybatis/mapper/*.xml"></property>
+	</bean>
+	
+	<!-- 扫描所有mapper接口的实现 -->
+	<mybatis-spring:scan base-package="com.zs.mybatis.dao"/>
+
+</beans>
